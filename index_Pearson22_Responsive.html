@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Formulario Incidencias Pearson 22</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background: #f7f7f7;
+        box-sizing: border-box;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    h2 {
+        text-align: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+    }
+
+    label {
+        font-weight: bold;
+        display: block;
+        margin-top: 15px;
+        font-size: 18px;
+    }
+
+    select, textarea, input {
+        width: 100%;
+        padding: 15px;
+        margin-top: 8px;
+        border: 1px solid #ccc;
+        border-radius: 10px;
+        font-size: 18px;
+        background: white;
+        box-sizing: border-box;
+    }
+
+    button {
+        width: 100%;
+        padding: 18px;
+        background-color: #0077ff;
+        color: #fff;
+        border: none;
+        border-radius: 10px;
+        font-size: 20px;
+        font-weight: bold;
+        margin-top: 25px;
+    }
+
+    button:active {
+        background-color: #0059bb;
+    }
+</style>
+</head>
+
+<body>
+
+<h2>Incidencias – Pearson 22</h2>
+
+<label>Edificio</label>
+<select id="edificio" onchange="cargarAulas()">
+    <option value="">Seleccionar edificio...</option>
+    <option value="infantil">Edif. Infantil</option>
+    <option value="anexo">Edif. Anexo</option>
+</select>
+
+<label>Aula / Espacio</label>
+<select id="aula">
+    <option value="">Seleccione un edificio...</option>
+</select>
+
+<label>Incidencia</label>
+<textarea id="incidencia" rows="4" placeholder="Describe la incidencia"></textarea>
+
+<label>Prioridad</label>
+<select id="prioridad">
+    <option value="Baja">Baja</option>
+    <option value="Media">Media</option>
+    <option value="Alta">Alta</option>
+    <option value="Urgente">Urgente</option>
+</select>
+
+<label>Profesor</label>
+<input type="text" id="profe" placeholder="Nombre del profesor">
+
+<button onclick="enviarCorreo()">ENVIAR</button>
+
+<script>
+const aulasInfantil = [
+"P3A","P3B","P3C","P4A","P4B","P4C","P5A","P5B","P5C",
+"1A","1B","1C","2A","2B","2C","3A","3B","3C","4A","4B","4C",
+"5A","5B","5C","6A","6B","6C",
+"Secretaría","WC Profes","Comedor niños","Comedor profes","Vestíbulo",
+"WC niños planta -2","WC niñas planta -2","WC niños patio cubierto","WC niñas patio cubierto",
+"WC niños 1ª planta","WC niñas 1ª planta","WC niños 2ª planta","WC niñas 2ª planta",
+"Sala profes patio cubierto","Sala profes 1ª planta","Sala profes 2ª planta",
+"Despacho 1ª planta","Despacho 2ª planta",
+"Pasillo Izq. 1ª planta","Pasillo Dch. 1ª planta","Pasillo Izq. 2ª planta","Pasillo Dch. 2ª planta",
+"Teatro planta 0","Teatro patio cubierto","Sala desdoble 1","Sala desdoble 2",
+"Sala desdoble 3","Sala desdoble 4","Aula Alemán","Terrado","Servidor"
+];
+
+const aulasAnexo = [
+"P1A","P1B","P1C","P2A","P2B","P2C",
+"Sala polivalente","WC 1ª planta","WC 2ª planta","Secretaría",
+"Sala profes","Pasillo 1ª planta","Pasillo 2ª planta","Servidor"
+];
+
+function cargarAulas() {
+    const edificio = document.getElementById('edificio').value;
+    const aulaSelect = document.getElementById('aula');
+    aulaSelect.innerHTML = "";
+
+    let lista = [];
+    if (edificio === "infantil") lista = aulasInfantil;
+    else if (edificio === "anexo") lista = aulasAnexo;
+
+    lista.forEach(a => {
+        const opt = document.createElement("option");
+        opt.value = a;
+        opt.textContent = a;
+        aulaSelect.appendChild(opt);
+    });
+}
+
+function enviarCorreo() {
+    const edificio = document.getElementById('edificio').value;
+    const aula = document.getElementById('aula').value;
+    const incidencia = document.getElementById('incidencia').value;
+    const prioridad = document.getElementById('prioridad').value;
+    const profe = document.getElementById('profe').value;
+
+    const body =
+`Edificio: ${edificio}%0D%0A
+Aula/Espacio: ${aula}%0D%0A
+Incidencia: ${incidencia}%0D%0A
+Prioridad: ${prioridad}%0D%0A
+Profesor: ${profe}`;
+
+    window.location.href =
+    "mailto:jalmedac@abatoliba.edu?subject=Incidencia Pearson 22&body=" + body;
+}
+</script>
+
+</body>
+</html>
