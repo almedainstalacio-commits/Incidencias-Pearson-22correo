@@ -67,8 +67,8 @@
 <label>Centro</label>
 <select id="centro" onchange="cargarEdificios()">
     <option value="">Seleccionar centro...</option>
-    <option value="Pearson 9">Pearson 9</option>
-    <option value="Pearson 22">Pearson 22</option>
+    <option value="PEARSON9">Pearson 9</option>
+    <option value="PEARSON22">Pearson 22</option>
 </select>
 
 <label>Edificio</label>
@@ -163,8 +163,8 @@ function cargarEdificios() {
 
     let lista = [];
 
-    if (centro === "Pearson 9") lista = ["Edif. A","Edif. B","Edif. C"];
-    if (centro === "Pearson 22") lista = ["Edif. Primaria","Edif. Llar"];
+    if (centro === "PEARSON9") lista = ["Edif. A","Edif. B","Edif. C"];
+    if (centro === "PEARSON22") lista = ["Edif. Primaria","Edif. Llar"];
 
     lista.forEach(e => {
         const opt = document.createElement("option");
@@ -182,13 +182,13 @@ function cargarAulas() {
 
     let lista = [];
 
-    if (centro === "Pearson 9") {
+    if (centro === "PEARSON9") {
         if (edificio === "Edif. A") lista = P9_A;
         if (edificio === "Edif. B") lista = P9_B;
         if (edificio === "Edif. C") lista = P9_C;
     }
 
-    if (centro === "Pearson 22") {
+    if (centro === "PEARSON22") {
         if (edificio === "Edif. Primaria") lista = P22_Primaria;
         if (edificio === "Edif. Llar") lista = P22_Llar;
     }
