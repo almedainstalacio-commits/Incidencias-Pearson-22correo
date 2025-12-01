@@ -63,7 +63,7 @@
 
 <h2>Incidencias – Pearson</h2>
 
-<!-- SELECCIÓN DE CENTRO -->
+<!-- CENTRO -->
 <label>Centro</label>
 <select id="centro">
     <option value="">Seleccionar centro...</option>
@@ -71,22 +71,13 @@
     <option value="Pearson 22">Pearson 22</option>
 </select>
 
-<!-- SELECCIÓN DE EDIFICIO -->
+<!-- EDIFICIO -->
 <label>Edificio</label>
 <select id="edificio" onchange="cargarAulas()">
     <option value="">Seleccionar edificio...</option>
-
-    <!-- Pearson 22 -->
-    <option value="Infantil">Edif. Infantil</option>
-    <option value="Llar">Edif. Llar (Anexo)</option>
-
-    <!-- Pearson 9 -->
-    <option value="Edif. A">Edif. A</option>
-    <option value="Edif. B">Edif. B</option>
-    <option value="Edif. C">Edif. C</option>
 </select>
 
-<!-- AULA / ESPACIO -->
+<!-- AULA -->
 <label>Aula / Espacio</label>
 <select id="aula" onchange="mostrarOtro()">
     <option value="">Seleccione un edificio...</option>
@@ -168,7 +159,47 @@ const aulasC = [
 ];
 
 // ====================
-// CARGAR AULAS
+// EDIFICIOS POR CENTRO
+// ====================
+
+const edificiosPorCentro = {
+    "Pearson 9": [
+        { value: "Edif. A", text: "Edif. A" },
+        { value: "Edif. B", text: "Edif. B" },
+        { value: "Edif. C", text: "Edif. C" }
+    ],
+
+    "Pearson 22": [
+        { value: "Infantil", text: "Edif. Infantil" },
+        { value: "Llar", text: "Edif. Llar (Anexo)" }
+    ]
+};
+
+// ====================
+// CAMBIAR EDIFICIOS SEGÚN CENTRO
+// ====================
+
+document.getElementById("centro").addEventListener("change", function () {
+
+    const centro = this.value;
+    const edificioSelect = document.getElementById("edificio");
+
+    edificioSelect.innerHTML = '<option value="">Seleccionar edificio...</option>';
+
+    if (edificiosPorCentro[centro]) {
+        edificiosPorCentro[centro].forEach(ed => {
+            const opt = document.createElement("option");
+            opt.value = ed.value;
+            opt.textContent = ed.text;
+            edificioSelect.appendChild(opt);
+        });
+    }
+
+    document.getElementById("aula").innerHTML = '<option value="">Seleccione un edificio...</option>';
+});
+
+// ====================
+// CARGAR AULAS SEGÚN EDIFICIO
 // ====================
 
 function cargarAulas() {
@@ -181,6 +212,7 @@ function cargarAulas() {
 
     if (edificio === "Infantil") lista = aulasInfantil;
     if (edificio === "Llar") lista = aulasLlar;
+
     if (edificio === "Edif. A") lista = aulasA;
     if (edificio === "Edif. B") lista = aulasB;
     if (edificio === "Edif. C") lista = aulasC;
@@ -241,3 +273,4 @@ Solicitante: ${profe}`;
 
 </body>
 </html>
+
