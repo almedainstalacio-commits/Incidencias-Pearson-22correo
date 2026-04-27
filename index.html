@@ -235,6 +235,14 @@ function enviarCorreo() {
     const incidencia = document.getElementById('incidencia').value;
     const prioridad = document.getElementById('prioridad').value;
     const profe = document.getElementById('profe').value;
+    if (!centro || !edificio || !aula || !incidencia.trim() || !profe.trim()) {
+    estado.textContent = "Rellena todos los campos antes de enviar.";
+    alert("Rellena todos los campos antes de enviar.");
+
+    boton.disabled = false;
+    boton.textContent = "ENVIAR";
+    return;
+}
 
     const cuerpoPlano =
 `Centro: ${centro}
