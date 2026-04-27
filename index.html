@@ -258,8 +258,10 @@ Solicitante: ${profe}`;
     .then(() => {
         estado.textContent = "Incidencia enviada correctamente ✔";
 
-        window.location.href =
-        "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
+        setTimeout(() => {
+    window.location.href =
+    "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
+}, 800);
     })
     .catch(() => {
         estado.textContent = "Error al enviar. Intenta otra vez.";
