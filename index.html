@@ -257,20 +257,13 @@ function enviarCorreo() {
     const prioridad = document.getElementById('prioridad').value;
     const profe = document.getElementById('profe').value;
 
-    if (!centro || !edificio || !aula || !incidencia || !prioridad || !profe) {
-        alert("Faltan campos por rellenar.");
-        return;
-    }
-
     const cuerpoPlano =
 `Centro: ${centro}
 Edificio: ${edificio}
-Espacio: ${aula}
-Descripcion: ${incidencia}
+Aula/Espacio: ${aula}
+Incidencia: ${incidencia}
 Prioridad: ${prioridad}
 Solicitante: ${profe}`;
-
-    alert("Enviando incidencia a la app...");
 
     fetch("https://api-incidencias-loreto.onrender.com/incidencia-beacon?token=1234", {
         method: "POST",
@@ -283,21 +276,12 @@ Solicitante: ${profe}`;
             remitente: profe
         })
     })
-    .then(response => {
-        if (!response.ok) {
-            throw new Error("La API respondió con error: " + response.status);
-        }
-        return response.text();
-    })
-    .then(data => {
-        alert("Incidencia enviada a la app correctamente.");
-
+    .then(() => {
         window.location.href =
             "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
     })
-    .catch(error => {
-        console.error("ERROR:", error);
-        alert("No se ha podido enviar a la app. Error: " + error.message);
+    .catch(() => {
+        alert("Error enviando incidencia. Intenta otra vez.");
     });
 }
 
