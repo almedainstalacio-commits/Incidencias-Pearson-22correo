@@ -215,8 +215,11 @@ function mostrarOtro() {
 function enviarCorreo() {
 
     const boton = document.querySelector("button");
+    const estado = document.getElementById("estado_envio");
+
     boton.disabled = true;
     boton.textContent = "ENVIANDO...";
+    estado.textContent = "Enviando incidencia...";
 
     const centro = document.getElementById('centro').value;
     const edificio = document.getElementById('edificio').value;
@@ -252,13 +255,15 @@ Solicitante: ${profe}`;
         })
     })
     .then(() => {
+        estado.textContent = "Incidencia enviada correctamente ✔";
+
         window.location.href =
         "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
     })
     .catch(() => {
+        estado.textContent = "Error al enviar. Intenta otra vez.";
         alert("Error enviando incidencia. Intenta otra vez.");
 
-        // 🔴 Si falla, reactivamos botón
         boton.disabled = false;
         boton.textContent = "ENVIAR";
     });
