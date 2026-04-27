@@ -213,6 +213,10 @@ function mostrarOtro() {
 // ENVÍO CORREGIDO
 function enviarCorreo() {
 
+    const boton = document.querySelector("button");
+    boton.disabled = true;
+    boton.textContent = "ENVIANDO...";
+
     const centro = document.getElementById('centro').value;
     const edificio = document.getElementById('edificio').value;
 
@@ -252,6 +256,10 @@ Solicitante: ${profe}`;
     })
     .catch(() => {
         alert("Error enviando incidencia. Intenta otra vez.");
+
+        // 🔴 Si falla, reactivamos botón
+        boton.disabled = false;
+        boton.textContent = "ENVIAR";
     });
 }
 
