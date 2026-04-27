@@ -241,7 +241,7 @@ function mostrarOtro() {
 // ENVÍO DE CORREO
 // ====================
 
-async function enviarCorreo() {
+function enviarCorreo() {
 
     const centro = document.getElementById('centro').value;
     const edificio = document.getElementById('edificio').value;
@@ -265,18 +265,31 @@ Incidencia: ${incidencia}
 Prioridad: ${prioridad}
 Solicitante: ${profe}`;
 
-    // 🔴 ENVÍO A LA APP (CLAVE)
     fetch("https://api-incidencias-loreto.onrender.com/incidencia-beacon?token=1234", {
-    method: "POST",
-    headers: {
-        "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-        asunto: incidencia,
-        body: cuerpoPlano,
-        remitente: profe
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            asunto: incidencia,
+            body: cuerpoPlano,
+            remitente: profe
+        })
     })
-});
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Error en el envío");
+        }
+
+        // ✅ SOLO abre el correo cuando ya se ha enviado bien
+        window.location.href =
+            "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Error enviando incidencia. Intenta otra vez.");
+    });
+}
 
     // ✅ CORREO (LO QUE YA TENÍAS)
     window.location.href =
