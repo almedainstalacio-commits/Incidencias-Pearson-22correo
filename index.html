@@ -257,11 +257,12 @@ function enviarCorreo() {
     const prioridad = document.getElementById('prioridad').value;
     const profe = document.getElementById('profe').value;
 
+    // 🔥 FORMATO ORIGINAL (NO TOCAR)
     const cuerpoPlano =
 `Centro: ${centro}
 Edificio: ${edificio}
-Aula/Espacio: ${aula}
-Incidencia: ${incidencia}
+Espacio: ${aula}
+Descripcion: ${incidencia}
 Prioridad: ${prioridad}
 Solicitante: ${profe}`;
 
@@ -281,7 +282,6 @@ Solicitante: ${profe}`;
             throw new Error("Error en el envío");
         }
 
-        // ✅ SOLO abre el correo cuando ya se ha enviado bien
         window.location.href =
             "mailto:jalmedac@abatoliba.edu?subject=Incidencia&body=" + encodeURIComponent(cuerpoPlano);
     })
